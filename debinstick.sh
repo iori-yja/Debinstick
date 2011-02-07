@@ -44,10 +44,18 @@ if [ "$arc" = "powerpc" ];then
 instlrdir="wget ${installerimage}${arc}/current/images/powerpc/hd-media/"
 wget ${instlrdir}vmlinux
 wget ${instlrdir}initrd.gz
+wget ${instlrdir}yaboot.conf
+wget ${instlrdir}boot.msg
+wget ${instlrdir}boot.img.gz
 else
 instlrdir="${installerimage}${arc}/${installerdir}"
-wget ${instlrdir}vmlinuz
-wget ${instlrdir}initrd.gz
+echo "Wanna use graphical installer?[Y/n]"
+read graf
+if [ "$graf" = "Y" ]||[ "$graf" = "y" ]||[ "$graf" = "$NULL" ];then
+	GTK=gtk/
+fi
+wget ${instlrdir}${GTK}vmlinuz
+wget ${instlrdir}${GTK}initrd.gz
 fi
 if [ "$stayn" = "Y" ]||[ "$stayn" = "y" ];then
 	mkdir /media/dbinstk
